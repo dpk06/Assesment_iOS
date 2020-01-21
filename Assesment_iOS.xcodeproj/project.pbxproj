@@ -13,6 +13,8 @@
 		8B3FE82F23D6CFBD00FFAA18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B3FE82D23D6CFBD00FFAA18 /* Main.storyboard */; };
 		8B3FE83123D6CFBF00FFAA18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B3FE83023D6CFBF00FFAA18 /* Assets.xcassets */; };
 		8B3FE83423D6CFBF00FFAA18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B3FE83223D6CFBF00FFAA18 /* LaunchScreen.storyboard */; };
+		8B3FE83F23D6D93500FFAA18 /* CommonDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3FE83E23D6D93500FFAA18 /* CommonDataFile.swift */; };
+		8B3FE84123D6ED3400FFAA18 /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3FE84023D6ED3400FFAA18 /* DataTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		8B3FE83023D6CFBF00FFAA18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B3FE83323D6CFBF00FFAA18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B3FE83523D6CFBF00FFAA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B3FE83E23D6D93500FFAA18 /* CommonDataFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDataFile.swift; sourceTree = "<group>"; };
+		8B3FE84023D6ED3400FFAA18 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,41 @@
 		8B3FE82623D6CFBD00FFAA18 /* Assesment_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				8B3FE83D23D6D90300FFAA18 /* Helper */,
+				8B3FE83B23D6D84300FFAA18 /* Modal Classes */,
+				8B3FE83C23D6D85A00FFAA18 /* ViewController */,
 				8B3FE82723D6CFBD00FFAA18 /* AppDelegate.swift */,
 				8B3FE82923D6CFBD00FFAA18 /* SceneDelegate.swift */,
-				8B3FE82B23D6CFBD00FFAA18 /* ViewController.swift */,
 				8B3FE82D23D6CFBD00FFAA18 /* Main.storyboard */,
 				8B3FE83023D6CFBF00FFAA18 /* Assets.xcassets */,
 				8B3FE83223D6CFBF00FFAA18 /* LaunchScreen.storyboard */,
 				8B3FE83523D6CFBF00FFAA18 /* Info.plist */,
 			);
 			path = Assesment_iOS;
+			sourceTree = "<group>";
+		};
+		8B3FE83B23D6D84300FFAA18 /* Modal Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Modal Classes";
+			sourceTree = "<group>";
+		};
+		8B3FE83C23D6D85A00FFAA18 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8B3FE82B23D6CFBD00FFAA18 /* ViewController.swift */,
+				8B3FE84023D6ED3400FFAA18 /* DataTableViewCell.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		8B3FE83D23D6D90300FFAA18 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8B3FE83E23D6D93500FFAA18 /* CommonDataFile.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +170,8 @@
 			files = (
 				8B3FE82C23D6CFBD00FFAA18 /* ViewController.swift in Sources */,
 				8B3FE82823D6CFBD00FFAA18 /* AppDelegate.swift in Sources */,
+				8B3FE84123D6ED3400FFAA18 /* DataTableViewCell.swift in Sources */,
+				8B3FE83F23D6D93500FFAA18 /* CommonDataFile.swift in Sources */,
 				8B3FE82A23D6CFBD00FFAA18 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
