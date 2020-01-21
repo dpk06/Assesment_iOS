@@ -61,6 +61,11 @@
                                                 <constraint firstItem="O1o-Wm-sYY" firstAttribute="leading" secondItem="TyC-hP-FMP" secondAttribute="leadingMargin" id="rUA-3U-GJv"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cell_ImageView" destination="O1o-Wm-sYY" id="IjR-ey-eNU"/>
+                                            <outlet property="description_Label" destination="bDl-DL-BrS" id="xoD-dF-KyF"/>
+                                            <outlet property="tittle_Label" destination="c2Y-Ap-5wn" id="lhe-eP-WDD"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

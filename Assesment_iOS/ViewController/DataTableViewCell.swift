@@ -10,6 +10,9 @@ import UIKit
 
 class DataTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var description_Label: UILabel!
+    @IBOutlet weak var tittle_Label: UILabel!
+    @IBOutlet weak var cell_ImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
