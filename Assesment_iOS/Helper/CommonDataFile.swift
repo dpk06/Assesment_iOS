@@ -24,49 +24,6 @@ class CommonData: NSObject {
         return URLSession(configuration: config)
     }
     
-    class func getStringFromData(data: Data) -> String? {
-        guard let str = String(data: data, encoding: .utf8) else { return nil }
-        return str
-    }
-    
-    
-    
-    func apiCall(url : String){
-
-        let url = URL(string: url)!
-
-        var request = URLRequest(url: url)
-                   request.httpMethod = "GET"
-        let task = sharedSession.dataTask(with: url) { data, response, error in
-
-            guard error == nil else {
-                print ("error: \(error!)")
-                return
-            }
-
-            // ensure there is data returned from this HTTP response
-            guard let content = data else {
-                print("No data")
-                return
-            }
-            let strData = String(data: content, encoding: .isoLatin2)
-            let decodedData = strData?.data(using: .utf8)
-            do {
-//                let serilization = try JSONSerialization.jsonObject(with: decodedData ?? Data(), options: .mutableLeaves)
-//                print("serilization----",serilization)
-                let decoder = JSONDecoder()
-                let json = try decoder.decode(Json_Data.self, from: decodedData!)
-                print("json----",json.title ?? "")
-            } catch {
-                print("error")
-            }
-        }
-        task.resume()
-    }
-    
-    
-    
-    
     func apiCall(serviceURL : String, completionBlock : @escaping (_ successful:Bool, _ responseData : Any) -> ()) {
            guard let url = URL(string: "\(serviceURL)") else { return }
            print("url is-->> \(url)")
@@ -89,8 +46,7 @@ class CommonData: NSObject {
                                                          completionBlock(false,"error no data")
                                                         return
                                                     }
-                                                    completionBlock(true,decodedData)
-                                                    
+                                                    completionBlock(true,decodedData)                            
            })
            dataTask.resume()
        }

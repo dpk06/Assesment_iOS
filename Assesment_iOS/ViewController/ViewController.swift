@@ -15,11 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         data_TableView.dataSource = self
-        
         callApi()
     }
-    
-    
 }
 extension ViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,6 +45,7 @@ extension ViewController : UITableViewDataSource {
                     let jsonData = try decoder.decode(Json_Data.self, from: response as! Data)
                     
                     DispatchQueue.main.async {
+                        self.navigationItem.title = jsonData.title ?? ""
                         self.rowsArray = jsonData.rows ?? []
                         self.data_TableView.reloadData()
                     }
