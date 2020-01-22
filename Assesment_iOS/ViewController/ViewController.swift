@@ -16,42 +16,33 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         data_TableView.dataSource = self
+        data_TableView.delegate = self
         pullDownrefresh()
         callApi()
         
     }
-}
+    
+    
+    // Method is For Pull Down refresh
 
-//---- extension for UITableViewDataSource 
-
-extension ViewController : UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rowsArray.count
-    }
+    func pullDownrefresh(){
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as! DataTableViewCell
-        
-        DispatchQueue.main.async {
-            cell.description_Label.text = self.rowsArray[indexPath.row].description
-            cell.tittle_Label.text = self.rowsArray[indexPath.row].title
-            let imgUrl = self.rowsArray[indexPath.row].imageHref
-        
-            //---- image downlaoded through sdWeb Image
-            cell.cell_ImageView?.sd_setImage(with: URL(string: imgUrl ?? ""), placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.refreshCached) { (image, error, type, url) in
-                if error != nil {
-                    print("failed to download \(String(describing: url))  error \(error)")
-                }
-            }
-        }
-        
-        return cell
+           let refreshControl = UIRefreshControl()
+           refreshControl.addTarget(self, action:
+               #selector(handleRefresh(_:)),
+                                    for: UIControl.Event.valueChanged)
+           refreshControl.tintColor = UIColor.lightGray
+        self.data_TableView.insertSubview(refreshControl, at: 0)
+       }
     
-    }
+       @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+           print("\(#function) pullDownrefresh ")
+           self.callApi()
+           refreshControl.endRefreshing()
+       }
     
     
-    
-// ---- Rest Api Call
+    // ---- Rest Api Call
     
     func callApi()  {
         let url =  "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
@@ -78,23 +69,39 @@ extension ViewController : UITableViewDataSource {
         }
     }
     
-    
-// Method is For Pull Down refresh
+}
 
-    func pullDownrefresh(){
+//---- extension for UITableViewDataSource 
+
+extension ViewController : UITableViewDataSource , UITableViewDelegate{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return rowsArray.count
+    }
     
-           let refreshControl = UIRefreshControl()
-           refreshControl.addTarget(self, action:
-               #selector(handleRefresh(_:)),
-                                    for: UIControl.Event.valueChanged)
-           refreshControl.tintColor = UIColor.lightGray
-        self.data_TableView.insertSubview(refreshControl, at: 0)
-       }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as! DataTableViewCell
+        cell.description_Label.text = self.rowsArray[indexPath.row].description
+        cell.tittle_Label.text = self.rowsArray[indexPath.row].title
+        DispatchQueue.main.async {
+
+            let imgUrl = self.rowsArray[indexPath.row].imageHref
+        
+            //---- image downlaoded through sdWeb Image
+            cell.cell_ImageView?.sd_setImage(with: URL(string: imgUrl ?? ""), placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.refreshCached) { (image, error, type, url) in
+                if error != nil {
+                    print("failed to download \(String(describing: url))  error \(String(describing: error))")
+                }
+            }
+        }
+        return cell
+    }
     
-       @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-           print("\(#function) pullDownrefresh ")
-           self.callApi()
-           refreshControl.endRefreshing()
-       }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if rowsArray[indexPath.row].description == nil && rowsArray[indexPath.row].title == nil &&  rowsArray[indexPath.row].imageHref == nil {
+            return 0
+        } else {
+                 return  UITableView.automaticDimension
+        }
+    }
+
 }
