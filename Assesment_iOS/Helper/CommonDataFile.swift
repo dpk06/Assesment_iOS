@@ -7,48 +7,77 @@
 //
 
 import Foundation
+import UIKit
 
 class CommonData: NSObject {
     
     static let sharedInstance = CommonData ()
+    var activityIndicator = UIActivityIndicatorView()
+    //---- create default session
+     private var sharedSession: URLSession {
+         let config = URLSessionConfiguration.default
+         config.timeoutIntervalForRequest = 60
+         config.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+         config.httpAdditionalHeaders = ["Cache-Control" : "no-cache"]
+         return URLSession(configuration: config)
+     }
     
     private override init() {
+        self.activityIndicator = UIActivityIndicatorView()
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.style = UIActivityIndicatorView.Style.large
         super .init()
     }
     
-    private var sharedSession: URLSession {
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 60
-        config.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-        config.httpAdditionalHeaders = ["Cache-Control" : "no-cache"]
-        return URLSession(configuration: config)
+    //----- Add / remove Activity indicators method
+
+    func showActivityIndicatorOnView (view : UIView) {
+        self.activityIndicator.center = view.center
+                activityIndicator.startAnimating()
+//                UIApplication.shared.beginIgnoringInteractionEvents()
+        view.addSubview(activityIndicator)
     }
     
+    func removeActivityIndicator () {
+        DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                   self.activityIndicator.removeFromSuperview()
+            
+        }
+    }
+ 
+//----  Get Api call request
+    
     func apiCall(serviceURL : String, completionBlock : @escaping (_ successful:Bool, _ responseData : Any) -> ()) {
-           guard let url = URL(string: "\(serviceURL)") else { return }
-           print("url is-->> \(url)")
-           let dataTask = sharedSession.dataTask(with: url,
-                                                 completionHandler: { (data, response, error) in
-                                                    guard error == nil else {
-                                                                   print ("error: \(error!)")
-                                                        completionBlock(false,error ?? "error")
-                                                                   return
-                                                               }
-                                                    
-                                                    guard let content = data else {
-                                                        completionBlock(false,"error no data")
-                                                        return
-                                                    }
-                                                    
-                                                    let strData = String(data: content, encoding: .isoLatin2)
-                                                    
-                                                    guard let decodedData = strData?.data(using: .utf8) else {
-                                                         completionBlock(false,"error no data")
-                                                        return
-                                                    }
-                                                    completionBlock(true,decodedData)                            
-           })
-           dataTask.resume()
-       }
+        guard let url = URL(string: "\(serviceURL)") else { return }
+        print("url is-->> \(url)")
+        let dataTask = sharedSession.dataTask(with: url,
+                                              completionHandler: { (data, response, error) in
+                                                guard error == nil else {
+                                                    print ("error: \(error!)")
+                                                    completionBlock(false,error ?? "error")
+                                                    return
+                                                }
+                                                
+                                                guard let content = data else {
+                                                    completionBlock(false,"error no data")
+                                                    return
+                                                }
+                                  // Convert Data to string using isoLatin2
+                                                
+                                                let strData = String(data: content, encoding: .isoLatin2)
+                                                
+                                                guard let decodedData = strData?.data(using: .utf8) else {
+                                                    completionBlock(false,"error no data")
+                                                    return
+                                                }
+                                                completionBlock(true,decodedData)
+        })
+        dataTask.resume()
+    }
     
 }
+
+
+
+
