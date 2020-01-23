@@ -8,7 +8,6 @@
 
 import UIKit
 import SDWebImage
-
 class ViewController: UIViewController {
     
     @IBOutlet weak var data_TableView: UITableView!
@@ -17,11 +16,33 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         data_TableView.dataSource = self
         data_TableView.delegate = self
+        data_TableView.allowsSelection = false
         pullDownrefresh()
         callApi()
+         NotificationCenter.default.addObserver(self, selector: #selector(networkStatusChanged(notification:)), name: NSNotification.Name("Reachability"), object: nil)
         
     }
     
+    // --- observer method for Reachabiltiy of connection
+    
+    @objc func networkStatusChanged(notification: Notification) {
+        if let info = notification.userInfo as? [String: String] {
+            let connectionStatus = info["connection"]
+            if connectionStatus != "lost" {
+                
+            } else {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController.init(title: "Connection", message: "No network avialble", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: { _ in
+                        alert.dismiss(animated: true, completion: nil)
+                    }))
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+        
+    }
     
     // Method is For Pull Down refresh
 

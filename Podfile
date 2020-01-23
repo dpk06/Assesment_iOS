@@ -5,6 +5,7 @@ target 'Assesment_iOS' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
  pod 'SDWebImage', '~> 5.0'
+ pod 'ReachabilitySwift'
 
   # Pods for Assesment_iOS
 

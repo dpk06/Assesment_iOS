@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		142CD63823D979A5000FE5BC /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B3FE82423D6CFBD00FFAA18 /* Assesment_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assesment_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B3FE82723D6CFBD00FFAA18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8B3FE82923D6CFBD00FFAA18 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,7 +57,6 @@
 				D9080E10E5082AD1A1B7FE0B /* Pods-Assesment_iOS.debug.xcconfig */,
 				D92966B68E19CC68BC3541C0 /* Pods-Assesment_iOS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -123,6 +123,7 @@
 		CC0AA4D0E7E0B78127849C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				142CD63823D979A5000FE5BC /* Reachability.framework */,
 				F182B06FBE332DB4291AA9CE /* Pods_Assesment_iOS.framework */,
 			);
 			name = Frameworks;
