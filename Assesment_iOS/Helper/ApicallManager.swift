@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-class CommonData: NSObject {
+class ApicallManager: NSObject {
     
-    static let sharedInstance = CommonData ()
+    static let sharedInstance = ApicallManager ()
     var activityIndicator = UIActivityIndicatorView()
     //---- create default session
      private var sharedSession: URLSession {

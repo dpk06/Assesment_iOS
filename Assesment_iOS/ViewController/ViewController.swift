@@ -67,8 +67,8 @@ class ViewController: UIViewController {
     
     func callApi()  {
         let url =  "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
-        CommonData.sharedInstance.showActivityIndicatorOnView(view: self.view)
-        CommonData.sharedInstance.apiCall(serviceURL: url) { (isSuccesfull, response) in
+        ApicallManager.sharedInstance.showActivityIndicatorOnView(view: self.view)
+        ApicallManager.sharedInstance.apiCall(serviceURL: url) { (isSuccesfull, response) in
             
             if isSuccesfull {
                 do {
@@ -82,7 +82,7 @@ class ViewController: UIViewController {
                         self.data_TableView.reloadData()
                     }
                     
-            CommonData.sharedInstance.removeActivityIndicator()
+            ApicallManager.sharedInstance.removeActivityIndicator()
                 } catch {
                     print("error----",error.localizedDescription)
                 }
