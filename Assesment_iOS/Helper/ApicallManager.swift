@@ -11,22 +11,29 @@ import UIKit
 
 class ApicallManager: NSObject {
     
-    static let sharedInstance = ApicallManager ()
-    var activityIndicator = UIActivityIndicatorView()
-    //---- create default session
-     private var sharedSession: URLSession {
-         let config = URLSessionConfiguration.default
-         config.timeoutIntervalForRequest = 60
-         config.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-         config.httpAdditionalHeaders = ["Cache-Control" : "no-cache"]
-         return URLSession(configuration: config)
-     }
+     private var sharedSession: URLSession!
+     static let sharedInstance = ApicallManager ()
+     var activityIndicator = UIActivityIndicatorView()
+   
     
-    private override init() {
+       override init() {
+        
+      
+       let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 60
+        config.timeoutIntervalForResource = 60
+        config.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        config.httpAdditionalHeaders = ["Cache-Control" : "no-cache"]
+        self.sharedSession = URLSession(configuration: config)
+        
         self.activityIndicator = UIActivityIndicatorView()
         self.activityIndicator.hidesWhenStopped = true
         self.activityIndicator.style = UIActivityIndicatorView.Style.large
         super .init()
+    }
+    
+    public func checkSession(urlsession: URLSession){
+        self.sharedSession = urlsession
     }
     
     //----- Add / remove Activity indicators method
