@@ -12,16 +12,21 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var data_TableView: UITableView!
     var rowsArray = [Rows]()
+    var activityIndicator = UIActivityIndicatorView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         data_TableView.dataSource = self
         data_TableView.delegate = self
         data_TableView.allowsSelection = false
+        
+//        configSession ()
         pullDownrefresh()
         callApi()
-         NotificationCenter.default.addObserver(self, selector: #selector(networkStatusChanged(notification:)), name: NSNotification.Name("Reachability"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(networkStatusChanged(notification:)), name: NSNotification.Name("Reachability"), object: nil)
         
     }
+    
     
     // --- observer method for Reachabiltiy of connection
     
@@ -45,30 +50,64 @@ class ViewController: UIViewController {
     }
     
     // Method is For Pull Down refresh
-
+    
     func pullDownrefresh(){
-    
-           let refreshControl = UIRefreshControl()
-           refreshControl.addTarget(self, action:
-               #selector(handleRefresh(_:)),
-                                    for: UIControl.Event.valueChanged)
-           refreshControl.tintColor = UIColor.lightGray
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(handleRefresh(_:)),
+                                 for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = UIColor.lightGray
         self.data_TableView.insertSubview(refreshControl, at: 0)
-       }
+    }
     
-       @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-           print("\(#function) pullDownrefresh ")
-           self.callApi()
-           refreshControl.endRefreshing()
-       }
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        print("\(#function) pullDownrefresh ")
+        self.callApi()
+        refreshControl.endRefreshing()
+    }
+    
+    
+    //----- Add / remove Activity indicators method
+    
+    func showActivityIndicatorOnView (view : UIView) {
+        self.activityIndicator.center = view.center
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+    }
+    
+    func removeActivityIndicator () {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.removeFromSuperview()
+            
+        }
+    }
+    
+    
+    // configure Session
+    
+//    func configSession () {
+////       let config = URLSessionConfiguration.default
+//        sharedsession
+//        sharedsession.timeoutIntervalForRequest = 60
+//        sharedsession.timeoutIntervalForResource = 60
+//        sharedsession.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+//        sharedsession.httpAdditionalHeaders = ["Cache-Control" : "no-cache"]
+////        self.sharedSession = URLSession(configuration: config)
+//    }
+    
+//        func checkSession(urlsession: URLSession){
+//        self.sharedsession = urlsession
+//    }
     
     
     // ---- Rest Api Call
     
     func callApi()  {
         let url =  "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
-        ApicallManager.sharedInstance.showActivityIndicatorOnView(view: self.view)
-        ApicallManager.sharedInstance.apiCall(serviceURL: url) { (isSuccesfull, response) in
+        showActivityIndicatorOnView(view: self.view)
+        apiCall(serviceURL: url) { (isSuccesfull, response) in
             
             if isSuccesfull {
                 do {
@@ -82,7 +121,7 @@ class ViewController: UIViewController {
                         self.data_TableView.reloadData()
                     }
                     
-            ApicallManager.sharedInstance.removeActivityIndicator()
+                    self.removeActivityIndicator()
                 } catch {
                     print("error----",error.localizedDescription)
                 }
@@ -90,6 +129,42 @@ class ViewController: UIViewController {
         }
     }
     
+}
+
+
+//----  Get Api call request
+
+func apiCall(serviceURL : String, completionBlock : @escaping (_ successful:Bool, _ responseData : Any) -> ()) {
+    guard let url = URL(string: "\(serviceURL)") else { return }
+    print("url is-->> \(url)")
+    
+    // set up the session
+    let config = URLSessionConfiguration.default
+    let sharedSession = URLSession(configuration: config)
+    
+    let dataTask = sharedSession.dataTask(with: url,
+                                          completionHandler: { (data, response, error) in
+                                            guard error == nil else {
+                                                print ("error: \(error!)")
+                                                completionBlock(false,error ?? "error")
+                                                return
+                                            }
+                                            
+                                            guard let content = data else {
+                                                completionBlock(false,"error no data")
+                                                return
+                                            }
+                                            // Convert Data to string using isoLatin2
+                                            
+                                            let strData = String(data: content, encoding: .isoLatin2)
+                                            
+                                            guard let decodedData = strData?.data(using: .utf8) else {
+                                                completionBlock(false,"error no data")
+                                                return
+                                            }
+                                            completionBlock(true,decodedData)
+    })
+    dataTask.resume()
 }
 
 //---- extension for UITableViewDataSource 
@@ -104,9 +179,9 @@ extension ViewController : UITableViewDataSource , UITableViewDelegate{
         cell.description_Label.text = self.rowsArray[indexPath.row].description
         cell.tittle_Label.text = self.rowsArray[indexPath.row].title
         DispatchQueue.main.async {
-
+            
             let imgUrl = self.rowsArray[indexPath.row].imageHref
-        
+            
             //---- image downlaoded through sdWeb Image
             cell.cell_ImageView?.sd_setImage(with: URL(string: imgUrl ?? ""), placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.refreshCached) { (image, error, type, url) in
                 if error != nil {
@@ -121,8 +196,8 @@ extension ViewController : UITableViewDataSource , UITableViewDelegate{
         if rowsArray[indexPath.row].description == nil && rowsArray[indexPath.row].title == nil &&  rowsArray[indexPath.row].imageHref == nil {
             return 0
         } else {
-                 return  UITableView.automaticDimension
+            return  UITableView.automaticDimension
         }
     }
-
+    
 }

@@ -18,7 +18,7 @@
 		8B3FE84423D6F4C000FFAA18 /* Rows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3FE84223D6F4C000FFAA18 /* Rows.swift */; };
 		8B3FE84523D6F4C000FFAA18 /* Json_Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3FE84323D6F4C000FFAA18 /* Json_Data.swift */; };
 		8B4B8FA423DEF10000AE7586 /* Assesment_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4B8FA323DEF10000AE7586 /* Assesment_iOSTests.swift */; };
-		8B4B8FAE23DEF15700AE7586 /* ApiCallManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4B8FAD23DEF15700AE7586 /* ApiCallManagerTest.swift */; };
+		8B4B8FAE23DEF15700AE7586 /* ViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4B8FAD23DEF15700AE7586 /* ViewControllerTest.swift */; };
 		9486F93D5659B15E08BA1258 /* Pods_Assesment_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F182B06FBE332DB4291AA9CE /* Pods_Assesment_iOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +49,7 @@
 		8B4B8FA123DEF10000AE7586 /* Assesment_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Assesment_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B4B8FA323DEF10000AE7586 /* Assesment_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assesment_iOSTests.swift; sourceTree = "<group>"; };
 		8B4B8FA523DEF10000AE7586 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B4B8FAD23DEF15700AE7586 /* ApiCallManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCallManagerTest.swift; sourceTree = "<group>"; };
+		8B4B8FAD23DEF15700AE7586 /* ViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTest.swift; sourceTree = "<group>"; };
 		D9080E10E5082AD1A1B7FE0B /* Pods-Assesment_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assesment_iOS.debug.xcconfig"; path = "Target Support Files/Pods-Assesment_iOS/Pods-Assesment_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		D92966B68E19CC68BC3541C0 /* Pods-Assesment_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assesment_iOS.release.xcconfig"; path = "Target Support Files/Pods-Assesment_iOS/Pods-Assesment_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		F182B06FBE332DB4291AA9CE /* Pods_Assesment_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Assesment_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,7 +150,7 @@
 			children = (
 				8B4B8FA323DEF10000AE7586 /* Assesment_iOSTests.swift */,
 				8B4B8FA523DEF10000AE7586 /* Info.plist */,
-				8B4B8FAD23DEF15700AE7586 /* ApiCallManagerTest.swift */,
+				8B4B8FAD23DEF15700AE7586 /* ViewControllerTest.swift */,
 			);
 			path = Assesment_iOSTests;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B4B8FAE23DEF15700AE7586 /* ApiCallManagerTest.swift in Sources */,
+				8B4B8FAE23DEF15700AE7586 /* ViewControllerTest.swift in Sources */,
 				8B4B8FA423DEF10000AE7586 /* Assesment_iOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +512,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Assesment_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -531,6 +532,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Assesment_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
