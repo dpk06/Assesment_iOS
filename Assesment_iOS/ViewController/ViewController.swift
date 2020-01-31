@@ -10,22 +10,36 @@ import UIKit
 import SDWebImage
 class ViewController: UIViewController {
     
-    @IBOutlet weak var data_TableView: UITableView!
+    fileprivate let datacellReuseIdentifier = "DataTableViewCell"
+    fileprivate let data_TableView = UITableView()
     var rowsArray = [Rows]()
     var activityIndicator = UIActivityIndicatorView()
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        data_TableView.dataSource = self
-        data_TableView.delegate = self
-        data_TableView.allowsSelection = false
-        
-//        configSession ()
+        configureTableView()
         pullDownrefresh()
         callApi()
         NotificationCenter.default.addObserver(self, selector: #selector(networkStatusChanged(notification:)), name: NSNotification.Name("Reachability"), object: nil)
-        
     }
+    
+    
+    func configureTableView() {
+        data_TableView.dataSource = self
+        data_TableView.estimatedRowHeight = 100
+        data_TableView.allowsSelection = false
+        data_TableView.rowHeight = UITableView.automaticDimension
+        data_TableView.register(DataTableViewCell.self, forCellReuseIdentifier: datacellReuseIdentifier)
+        
+        view.addSubview(data_TableView)
+        data_TableView.translatesAutoresizingMaskIntoConstraints = false
+        data_TableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        data_TableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        data_TableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        data_TableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
     
     
     // --- observer method for Reachabiltiy of connection
@@ -175,7 +189,8 @@ extension ViewController : UITableViewDataSource , UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as! DataTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: datacellReuseIdentifier, for: indexPath) as! DataTableViewCell
+ 
         cell.description_Label.text = self.rowsArray[indexPath.row].description
         cell.tittle_Label.text = self.rowsArray[indexPath.row].title
         DispatchQueue.main.async {
@@ -183,7 +198,7 @@ extension ViewController : UITableViewDataSource , UITableViewDelegate{
             let imgUrl = self.rowsArray[indexPath.row].imageHref
             
             //---- image downlaoded through sdWeb Image
-            cell.cell_ImageView?.sd_setImage(with: URL(string: imgUrl ?? ""), placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.refreshCached) { (image, error, type, url) in
+            cell.product_ImageView.sd_setImage(with: URL(string: imgUrl ?? ""), placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.refreshCached) { (image, error, type, url) in
                 if error != nil {
                     print("failed to download \(String(describing: url))  error \(String(describing: error))")
                 }

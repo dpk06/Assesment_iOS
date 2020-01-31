@@ -123,7 +123,7 @@ class ViewControllerTest: XCTestCase {
         let httpResponse: HTTPURLResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "1.0", headerFields: [:])!
         
         
-        let apiCallMn : ApicallManager = ApicallManager()
+//        let apiCallMn : ApicallManager = ApicallManager()
         
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 2
@@ -133,7 +133,7 @@ class ViewControllerTest: XCTestCase {
         let mockURLSession  = MockURLSession();
         //mockURLSession.timeout = 1
         mockURLSession.data(data: jsonData, urlResponse: httpResponse, error: nil)
-        apiCallMn.checkSession(urlsession: mockURLSession)
+//        apiCallMn.checkSession(urlsession: mockURLSession)
         
         wait(for: 3)
         XCTAssert(true)
