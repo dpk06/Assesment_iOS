@@ -131,7 +131,7 @@ class ViewControllerTest: XCTestCase {
         config.httpAdditionalHeaders = ["Cache-Control" : "no-cache"]
         
         let mockURLSession  = MockURLSession();
-        //mockURLSession.timeout = 1
+        mockURLSession.timeout = 1
         mockURLSession.data(data: jsonData, urlResponse: httpResponse, error: nil)
 //        apiCallMn.checkSession(urlsession: mockURLSession)
         

@@ -13,6 +13,7 @@ class DataTableViewCell: UITableViewCell {
       let tittle_Label = UILabel()
       let description_Label = UILabel()
       let product_ImageView = UIImageView()
+      let seprator_View = UIView()
       
       // MARK: Initalizers
       override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -49,6 +50,7 @@ class DataTableViewCell: UITableViewCell {
           description_Label.numberOfLines = 0
           description_Label.font = UIFont(name: "Avenir-Book", size: 12)
           description_Label.textColor = UIColor.gray
+        
       }
       
       required init?(coder aDecoder: NSCoder) {

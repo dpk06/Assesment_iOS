@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     
     func configureTableView() {
         data_TableView.dataSource = self
+//        data_TableView.separatorStyle = .singleLine
         data_TableView.estimatedRowHeight = 100
         data_TableView.allowsSelection = false
         data_TableView.rowHeight = UITableView.automaticDimension
@@ -39,8 +40,6 @@ class ViewController: UIViewController {
         data_TableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         data_TableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
-    
-    
     
     // --- observer method for Reachabiltiy of connection
     
