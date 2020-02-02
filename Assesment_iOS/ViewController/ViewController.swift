@@ -47,14 +47,14 @@ class ViewController: UIViewController {
         if let info = notification.userInfo as? [String: String] {
             let connectionStatus = info["connection"]
             if connectionStatus != "lost" {
-                
+
             } else {
                 DispatchQueue.main.async {
                     let alert = UIAlertController.init(title: "Connection", message: "No network avialble", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: { _ in
                         alert.dismiss(animated: true, completion: nil)
                     }))
-                    
+
                     self.present(alert, animated: true, completion: nil)
                 }
             }
@@ -62,6 +62,7 @@ class ViewController: UIViewController {
         
     }
     
+   
     // Method is For Pull Down refresh
     
     func pullDownrefresh(){
@@ -96,24 +97,6 @@ class ViewController: UIViewController {
             
         }
     }
-    
-    
-    // configure Session
-    
-//    func configSession () {
-////       let config = URLSessionConfiguration.default
-//        sharedsession
-//        sharedsession.timeoutIntervalForRequest = 60
-//        sharedsession.timeoutIntervalForResource = 60
-//        sharedsession.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-//        sharedsession.httpAdditionalHeaders = ["Cache-Control" : "no-cache"]
-////        self.sharedSession = URLSession(configuration: config)
-//    }
-    
-//        func checkSession(urlsession: URLSession){
-//        self.sharedsession = urlsession
-//    }
-    
     
     // ---- Rest Api Call
     
